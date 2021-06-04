@@ -1,0 +1,26 @@
+<template>
+    
+    <div class="slds-m-around_medium">
+        <lightning-card title="Conditional Rendering | conditionalRendering">
+            <div class="slds-p-around_medium">
+
+                <lightning-button variant="brand" label="ClickMe" title="Primary action" 
+                onclick={handleClick} class="slds-m-left_x-small">
+            </lightning-button>
+
+                <template if:true={isVisible}>
+                <div>You Clicked the Button</div>
+            </template>
+           
+            <lightning-input type="text"
+             label="Type hello to see magic" 
+             onkeyup={changeHandler} ></lightning-input>
+            <template if:true={getterMethod}>
+                <div>Hurray!! you have written hello</div>
+            </template>
+
+            </div>
+        </lightning-card>
+    </div>
+
+</template>

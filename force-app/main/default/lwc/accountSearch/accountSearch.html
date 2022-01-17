@@ -1,0 +1,22 @@
+<template>
+    <lightning-card >
+        <div class="slds-p-around_x-large">
+        <lightning-input
+        type="number"
+        label="number of employees"
+        value={numberOfEmployees}
+        onchange={handleChange}>
+        </lightning-input>
+        <lightning-button
+        label="Reset"
+        onclick={reset}
+        ></lightning-button>
+
+        <template if:true={accounts.data}>
+            <template for:each={accounts.data} for:item="account">
+                 <p key={account.Id}>{account.Name}</p>
+            </template>
+        </template> 
+    </div>
+    </lightning-card>
+</template>

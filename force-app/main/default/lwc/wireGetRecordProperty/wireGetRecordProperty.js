@@ -7,8 +7,9 @@ export default class WireGetRecordProperty extends LightningElement {
     @api recordId;
     @wire(getRecord, { recordId: '$recordId', fields: [ACCOUNT_NAME_FIELD, INDUSTRY_FIELD] })
     account;
-    handle(){
+    handle() {
         console.log(this.account.data);
-        alert(getFieldValue(this.account.data,INDUSTRY_FIELD))
+        //alert(getFieldValue(this.account.data,INDUSTRY_FIELD))
+        alert(this.recordId);
     }
 }

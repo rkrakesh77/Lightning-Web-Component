@@ -1,4 +1,8 @@
+import addTodo from '@salesforce/apex/ToDoController.addTodo';
+import getCurrentToDo from '@salesforce/apex/ToDoController.getCurrentToDo';
 import { LightningElement, track } from 'lwc';
+
+
 
 export default class ToDoManager extends LightningElement {
 
@@ -8,10 +12,13 @@ export default class ToDoManager extends LightningElement {
 
     connectedCallback() {
         this.getTime();
-        //this.populateTodos();
+        // this.populateTodos();
+
+        //Get Data from Salesforce
+        this.fetchToDos();
         setInterval(() => {
             this.getTime();
-            console.log("Set Interval Called");
+            //console.log("Set Interval Called");
         }), 10000 * 600
     }
 
@@ -45,13 +52,20 @@ export default class ToDoManager extends LightningElement {
     addToDoHandler() {
         const inputBox = this.template.querySelector("lightning-input");
         const todo = {
-            todoId: this.toDos.length,
+            // todoId: this.toDos.length,
             todoName: inputBox.value,
             done: false,
-            todoDate: new Date()
+            // todoDate: new Date()
         }
 
-        this.toDos.push(todo);
+        addTodo({ payload: JSON.stringify(todo) }).then(response => {
+            console.log("Successfull");
+            this.fetchToDos();
+        }).catch(error => {
+            console.log("Error in AddToDo", error);
+        })
+
+        // this.toDos.push(todo);
 
         inputBox.value = "";
     }
@@ -59,9 +73,7 @@ export default class ToDoManager extends LightningElement {
     get upcomingTasks() {
         return this.toDos && this.toDos.length ? this.toDos.filter(i => !i.done) : [];
     }
-    get filtered() {
-        this.toDos.map
-    }
+
     get completedTasks() {
         return this.toDos && this.toDos.length ? this.toDos.filter(todo => todo.done) : [];
     }
@@ -86,6 +98,23 @@ export default class ToDoManager extends LightningElement {
             todoDate: new Date()
         }]
         this.toDos = todos;
+    }
+
+    fetchToDos() {
+        getCurrentToDo().then(result => {
+            if (result) {
+                console.log("Retreived ToDos from Salesforce");
+                this.toDos = result;
+            }
+        }).catch(error => {
+            console.log("Error in getting all ToDos", error);
+        })
+    }
+    updateHandler() {
+        this.fetchToDos();
+    }
+    deleteHandler() {
+        this.fetchToDos();
     }
 
 }

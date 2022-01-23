@@ -10,4 +10,5 @@
     background-color: white;
     padding: 16px;
     max-height: 480px;
+    scroll-behavior: auto;
 }

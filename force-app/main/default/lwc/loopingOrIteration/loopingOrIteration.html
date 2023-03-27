@@ -1,0 +1,22 @@
+<template>
+    <lightning-card title="Looping or Iteration" align>
+        <lightning-layout>
+            <lightning-layout-item padding="around-small">
+                <b>using for:each loop</b>
+                <ol class="slds-p-around_x-small slds-list_ordered">
+                    <template for:each={cityList} for:item="cityname">
+                        <li key={cityname}>{cityname}</li>
+                    </template>
+                </ol>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small">
+                <b>Using Iterator</b>
+                <ol class="slds-p-around_x-small slds-list_ordered">
+                    <template iterator:it={cityList}>
+                        <li key={it.value}>{it.value}</li>
+                    </template>
+                </ol>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

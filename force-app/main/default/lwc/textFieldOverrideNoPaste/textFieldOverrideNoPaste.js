@@ -7,7 +7,7 @@ export default class TextFieldOverrideNoPaste extends omniscriptEmail {
          // Events
     handleBlur(event) {
         this.omniApplyCallResp({[this.jsonDef.name]: event.target.value});
-    }
+    }̦
 
         handlePaste(event){
             console.log("pasted");
